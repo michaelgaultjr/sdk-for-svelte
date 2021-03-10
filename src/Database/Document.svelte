@@ -2,7 +2,6 @@
   /**
    * @slot {{
    * document: any;
-   * cache: boolean;
    * actions: {
    *  reload: () => Promise<object>;
    *  update: (data: any) => Promise<object>;
@@ -36,7 +35,7 @@
   export let document;
 
   /** @type {boolean} */
-  export let cache = getContext(cacheKey);
+  export let cache = getContext(cacheKey) ?? false;
 
   const fetchDocument = async () => {
     const key = `${collection}:${id}`;
@@ -57,14 +56,17 @@
   };
 
   if (id && collection && !document) {
-    document = fetchDocument();
+    document = fetchDocument(cache);
   } else {
     collection = document.$collection;
     id = document.$id;
   }
 
   const actions = {
-    reload: () => (document = fetchDocument()),
+    reload: () => {
+      documents.set(new Map());
+      document = fetchDocument()
+    },
     update: async data => {
       const response = await Appwrite.sdk.database.updateDocument(
         document.$collection,

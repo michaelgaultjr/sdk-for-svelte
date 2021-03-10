@@ -39,6 +39,9 @@ export interface CollectionProps {
    */
   search?: string;
 
+  /**
+   * @default false
+   */
   cache?: boolean;
 }
 
@@ -47,8 +50,6 @@ export default class Collection extends SvelteComponentTyped<
   {},
   {
     default: {
-      id: string;
-      cache: boolean;
       documents: any[];
       actions: {
         reload: () => Promise<object>;

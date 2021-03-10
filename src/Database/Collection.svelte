@@ -1,8 +1,6 @@
 <script>
   /**
    * @slot {{
-   * id: string;
-   * cache: boolean;
    * documents: any[];
    * actions: {
    *  reload: () => Promise<object>;
@@ -25,26 +23,13 @@
   /** @type {string[]} */
   export let filters = [];
 
-  /** @type {number} */
   export let offset = 0;
-
-  /** @type {number} */
   export let limit = 25;
-
-  /** @type {string} */
   export let orderField = '';
-
-  /** @type {string} */
   export let orderType = '';
-
-  /** @type {string} */
   export let orderCast = 'string';
-
-  /** @type {string} */
   export let search = '';
-
-  /** @type {boolean} */
-  export let cache;
+  export let cache = false;
   setContext(cacheKey, cache);
 
   const fetchDocuments = async () => {
@@ -86,7 +71,10 @@
   };
 
   const actions = {
-    reload: () => (documents = fetchDocuments()),
+    reload: () => {
+      $documents.set(new Map());
+      documents = fetchDocuments()
+    },
     create: async (
       data,
       read = [`user:${$currentUser.$id}`],
@@ -99,9 +87,9 @@
     },
   };
 
-  let documentsPromise = fetchDocuments();
+  let getDocuments = fetchDocuments();
 </script>
-{#await documentsPromise}
+{#await getDocuments}
   <slot name="loading" />
 {:then current}
   <slot documents={current?.documents ?? []} {actions} />

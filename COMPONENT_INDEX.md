@@ -128,15 +128,15 @@ None.
 | orderType  | <code>let</code> | No       | <code>string</code>   | <code>''</code>       | --          |
 | orderCast  | <code>let</code> | No       | <code>string</code>   | <code>'string'</code> | --          |
 | search     | <code>let</code> | No       | <code>string</code>   | <code>''</code>       | --          |
-| cache      | <code>let</code> | No       | <code>boolean</code>  | --                    | --          |
+| cache      | <code>let</code> | No       | <code>boolean</code>  | <code>false</code>    | --          |
 
 ### Slots
 
-| Slot name | Default | Props                                                                                                                                                                                  | Fallback |
-| :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
-| --        | Yes     | <code>{ id: string; cache: boolean; documents: any[]; actions: { reload: () => Promise<object>; create: (data: any, read?: string[], write?: string[]) => Promise<object>; } } </code> | --       |
-| error     | No      | <code>{ error: object } </code>                                                                                                                                                        | --       |
-| loading   | No      | --                                                                                                                                                                                     | --       |
+| Slot name | Default | Props                                                                                                                                                      | Fallback |
+| :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| --        | Yes     | <code>{ documents: any[]; actions: { reload: () => Promise<object>; create: (data: any, read?: string[], write?: string[]) => Promise<object>; } } </code> | --       |
+| error     | No      | <code>{ error: object } </code>                                                                                                                            | --       |
+| loading   | No      | --                                                                                                                                                         | --       |
 
 ### Events
 
@@ -249,11 +249,11 @@ None.
 
 ### Slots
 
-| Slot name | Default | Props                                                                                                                                                               | Fallback |
-| :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- |
-| --        | Yes     | <code>{ document: any; cache: boolean; actions: { reload: () => Promise<object>; update: (data: any) => Promise<object>; remove: () => Promise<object>; } } </code> | --       |
-| error     | No      | <code>{ error: any } </code>                                                                                                                                        | --       |
-| loading   | No      | --                                                                                                                                                                  | --       |
+| Slot name | Default | Props                                                                                                                                               | Fallback |
+| :-------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| --        | Yes     | <code>{ document: any; actions: { reload: () => Promise<object>; update: (data: any) => Promise<object>; remove: () => Promise<object>; } } </code> | --       |
+| error     | No      | <code>{ error: any } </code>                                                                                                                        | --       |
+| loading   | No      | --                                                                                                                                                  | --       |
 
 ### Events
 
