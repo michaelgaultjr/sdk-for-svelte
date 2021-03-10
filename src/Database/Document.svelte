@@ -43,7 +43,7 @@
       return $documents.get(key);
     }
 
-    const response = Appwrite.sdk.database.getDocument(collectionId, id)
+    const response = Appwrite.sdk.database.getDocument(collection, id)
 
     if (cache) {
       documents.update(map => {
