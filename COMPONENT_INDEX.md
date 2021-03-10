@@ -118,17 +118,17 @@ None.
 
 ### Props
 
-| Prop name  | Kind             | Reactive | Type                  | Default value | Description |
-| :--------- | :--------------- | :------- | :-------------------- | ------------- | ----------- |
-| id         | <code>let</code> | No       | <code>string</code>   | --            | --          |
-| filters    | <code>let</code> | No       | <code>string[]</code> | --            | --          |
-| offset     | <code>let</code> | No       | <code>number</code>   | --            | --          |
-| limit      | <code>let</code> | No       | <code>number</code>   | --            | --          |
-| orderField | <code>let</code> | No       | <code>string</code>   | --            | --          |
-| orderType  | <code>let</code> | No       | <code>string</code>   | --            | --          |
-| orderCast  | <code>let</code> | No       | <code>string</code>   | --            | --          |
-| search     | <code>let</code> | No       | <code>string</code>   | --            | --          |
-| cache      | <code>let</code> | No       | <code>boolean</code>  | --            | --          |
+| Prop name  | Kind             | Reactive | Type                  | Default value         | Description |
+| :--------- | :--------------- | :------- | :-------------------- | --------------------- | ----------- |
+| id         | <code>let</code> | No       | <code>string</code>   | --                    | --          |
+| filters    | <code>let</code> | No       | <code>string[]</code> | <code>[]</code>       | --          |
+| offset     | <code>let</code> | No       | <code>number</code>   | <code>0</code>        | --          |
+| limit      | <code>let</code> | No       | <code>number</code>   | <code>25</code>       | --          |
+| orderField | <code>let</code> | No       | <code>string</code>   | <code>''</code>       | --          |
+| orderType  | <code>let</code> | No       | <code>string</code>   | <code>''</code>       | --          |
+| orderCast  | <code>let</code> | No       | <code>string</code>   | <code>'string'</code> | --          |
+| search     | <code>let</code> | No       | <code>string</code>   | <code>''</code>       | --          |
+| cache      | <code>let</code> | No       | <code>boolean</code>  | --                    | --          |
 
 ### Slots
 
