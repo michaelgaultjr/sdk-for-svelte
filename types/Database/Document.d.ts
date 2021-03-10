@@ -7,6 +7,8 @@ export interface DocumentProps {
   collection?: string;
 
   document?: any;
+
+  cache?: boolean;
 }
 
 export default class Document extends SvelteComponentTyped<
@@ -15,6 +17,7 @@ export default class Document extends SvelteComponentTyped<
   {
     default: {
       document: any;
+      cache: boolean;
       actions: {
         reload: () => Promise<object>;
         update: (data: any) => Promise<object>;

@@ -1,1 +1,1 @@
-const cacheKey = {};
+export const cacheKey = {};

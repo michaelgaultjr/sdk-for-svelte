@@ -118,24 +118,25 @@ None.
 
 ### Props
 
-| Prop name  | Kind             | Reactive | Type                | Default value         | Description |
-| :--------- | :--------------- | :------- | :------------------ | --------------------- | ----------- |
-| id         | <code>let</code> | No       | <code>string</code> | --                    | --          |
-| filters    | <code>let</code> | No       | <code>[]</code>     | <code>[]</code>       | --          |
-| offset     | <code>let</code> | No       | <code>number</code> | <code>0</code>        | --          |
-| limit      | <code>let</code> | No       | <code>number</code> | <code>25</code>       | --          |
-| orderField | <code>let</code> | No       | <code>string</code> | <code>""</code>       | --          |
-| orderType  | <code>let</code> | No       | <code>string</code> | <code>""</code>       | --          |
-| orderCast  | <code>let</code> | No       | <code>string</code> | <code>"string"</code> | --          |
-| search     | <code>let</code> | No       | <code>string</code> | <code>""</code>       | --          |
+| Prop name  | Kind             | Reactive | Type                  | Default value | Description |
+| :--------- | :--------------- | :------- | :-------------------- | ------------- | ----------- |
+| id         | <code>let</code> | No       | <code>string</code>   | --            | --          |
+| filters    | <code>let</code> | No       | <code>string[]</code> | --            | --          |
+| offset     | <code>let</code> | No       | <code>number</code>   | --            | --          |
+| limit      | <code>let</code> | No       | <code>number</code>   | --            | --          |
+| orderField | <code>let</code> | No       | <code>string</code>   | --            | --          |
+| orderType  | <code>let</code> | No       | <code>string</code>   | --            | --          |
+| orderCast  | <code>let</code> | No       | <code>string</code>   | --            | --          |
+| search     | <code>let</code> | No       | <code>string</code>   | --            | --          |
+| cache      | <code>let</code> | No       | <code>boolean</code>  | --            | --          |
 
 ### Slots
 
-| Slot name | Default | Props                                                                                                                                                                  | Fallback |
-| :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
-| --        | Yes     | <code>{ id: string; documents: any[]; actions: { reload: () => Promise<object>; create: (data: any, read?: string[], write?: string[]) => Promise<object>; } } </code> | --       |
-| error     | No      | <code>{ error: object } </code>                                                                                                                                        | --       |
-| loading   | No      | --                                                                                                                                                                     | --       |
+| Slot name | Default | Props                                                                                                                                                                                  | Fallback |
+| :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
+| --        | Yes     | <code>{ id: string; cache: boolean; documents: any[]; actions: { reload: () => Promise<object>; create: (data: any, read?: string[], write?: string[]) => Promise<object>; } } </code> | --       |
+| error     | No      | <code>{ error: object } </code>                                                                                                                                                        | --       |
+| loading   | No      | --                                                                                                                                                                                     | --       |
 
 ### Events
 
@@ -239,19 +240,20 @@ None.
 
 ### Props
 
-| Prop name  | Kind             | Reactive | Type                | Default value | Description |
-| :--------- | :--------------- | :------- | :------------------ | ------------- | ----------- |
-| document   | <code>let</code> | Yes      | <code>any</code>    | --            | --          |
-| collection | <code>let</code> | Yes      | <code>string</code> | --            | --          |
-| id         | <code>let</code> | Yes      | <code>string</code> | --            | --          |
+| Prop name  | Kind             | Reactive | Type                 | Default value | Description |
+| :--------- | :--------------- | :------- | :------------------- | ------------- | ----------- |
+| document   | <code>let</code> | Yes      | <code>any</code>     | --            | --          |
+| collection | <code>let</code> | Yes      | <code>string</code>  | --            | --          |
+| id         | <code>let</code> | Yes      | <code>string</code>  | --            | --          |
+| cache      | <code>let</code> | No       | <code>boolean</code> | --            | --          |
 
 ### Slots
 
-| Slot name | Default | Props                                                                                                                                               | Fallback |
-| :-------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
-| --        | Yes     | <code>{ document: any; actions: { reload: () => Promise<object>; update: (data: any) => Promise<object>; remove: () => Promise<object>; } } </code> | --       |
-| error     | No      | <code>{ error: any } </code>                                                                                                                        | --       |
-| loading   | No      | --                                                                                                                                                  | --       |
+| Slot name | Default | Props                                                                                                                                                               | Fallback |
+| :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------- |
+| --        | Yes     | <code>{ document: any; cache: boolean; actions: { reload: () => Promise<object>; update: (data: any) => Promise<object>; remove: () => Promise<object>; } } </code> | --       |
+| error     | No      | <code>{ error: any } </code>                                                                                                                                        | --       |
+| loading   | No      | --                                                                                                                                                                  | --       |
 
 ### Events
 

@@ -4,40 +4,21 @@ import { SvelteComponentTyped } from "svelte";
 export interface CollectionProps {
   id?: string;
 
-  /**
-   * @default []
-   */
-  filters?: [];
+  filters?: string[];
 
-  /**
-   * @default 0
-   */
   offset?: number;
 
-  /**
-   * @default 25
-   */
   limit?: number;
 
-  /**
-   * @default ""
-   */
   orderField?: string;
 
-  /**
-   * @default ""
-   */
   orderType?: string;
 
-  /**
-   * @default "string"
-   */
   orderCast?: string;
 
-  /**
-   * @default ""
-   */
   search?: string;
+
+  cache?: boolean;
 }
 
 export default class Collection extends SvelteComponentTyped<
@@ -46,6 +27,7 @@ export default class Collection extends SvelteComponentTyped<
   {
     default: {
       id: string;
+      cache: boolean;
       documents: any[];
       actions: {
         reload: () => Promise<object>;
