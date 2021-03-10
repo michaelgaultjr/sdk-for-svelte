@@ -54,7 +54,6 @@
         .filter(entry => entry[0].startsWith(id))
         .map(entry => entry[1])
         
-      console.log(docs);
       if (docs?.length) {
         return {
           documents: docs,
@@ -77,7 +76,6 @@
     if (cache) {
       documents.update(map => {
         for (const document of response.documents) {
-          console.log(document);
           map.set(`${id}:${document.$id}`, document);
         }
         return map;
