@@ -23,40 +23,68 @@
   export let id;
 
   /** @type {string[]} */
-  export let filters;
+  export let filters = [];
 
   /** @type {number} */
-  export let offset;
+  export let offset = 0;
 
   /** @type {number} */
-  export let limit;
+  export let limit = 25;
 
   /** @type {string} */
-  export let orderField;
+  export let orderField = '';
 
   /** @type {string} */
-  export let orderType;
+  export let orderType = '';
 
   /** @type {string} */
-  export let orderCast;
+  export let orderCast = 'string';
 
   /** @type {string} */
-  export let search;
+  export let search = '';
 
   /** @type {boolean} */
   export let cache;
   setContext(cacheKey, cache);
 
   const fetchDocuments = async () => {
-    return await documents.fetchCollection(id, cache, {
+    if (cache) {
+      const docs = Array
+        .from($documents.entries())
+        .filter(entry => entry[0].startsWith(id))
+        .map(entry => entry[1])
+        
+      console.log(docs);
+      if (docs?.length) {
+        return {
+          documents: docs,
+          sum: documents.length
+        }
+      }
+    }
+
+    const response = await Appwrite.sdk.database.listDocuments(
+      id,
       filters,
       limit,
       offset,
       orderField,
       orderType,
       orderCast,
-      search
-    })
+      search,
+    )
+
+    if (cache) {
+      documents.update(map => {
+        for (const document of response.documents) {
+          console.log(document);
+          map.set(`${id}:${document.$id}`, document);
+        }
+        return map;
+      })
+    }
+
+    return response;
   };
 
   const actions = {
@@ -75,7 +103,6 @@
 
   let documentsPromise = fetchDocuments();
 </script>
-
 {#await documentsPromise}
   <slot name="loading" />
 {:then current}

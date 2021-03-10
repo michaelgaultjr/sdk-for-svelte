@@ -39,7 +39,21 @@
   export let cache = getContext(cacheKey);
 
   const fetchDocument = async () => {
-    return await documents.fetchDocument(collection, id, cache)
+    const key = `${collection}:${id}`;
+    if (cache && $documents.has(key)) {
+      return $documents.get(key);
+    }
+
+    const response = Appwrite.sdk.database.getDocument(collectionId, documentId)
+
+    if (cache) {
+      documents.update(map => {
+        map.set(key, response);
+        return map;
+      });
+    }
+  
+    return response;
   };
 
   if (id && collection && !document) {
