@@ -2,6 +2,7 @@
   /**
    * @slot {{
    * document: any;
+   * cache: boolean;
    * actions: {
    *  reload: () => Promise<object>;
    *  update: (data: any) => Promise<object>;
@@ -9,7 +10,10 @@
    * }
    * }}
    */
+  import { getContext } from 'svelte';
+  import { cacheKey } from '../keys';
   import { createEventDispatcher } from "svelte";
+  import { documents } from '../stores';
   import { SDK as Appwrite }  from "../appwrite";
 
   const dispatch = createEventDispatcher();
@@ -31,7 +35,12 @@
    */
   export let document;
 
-  const fetchDocument = () => Appwrite.sdk.database.getDocument(collection, id);
+  /** @type {boolean} */
+  export let cache = getContext(cacheKey);
+
+  const fetchDocument = async () => {
+    return await documents.fetchDocument(collection, id, cache)
+  };
 
   if (id && collection && !document) {
     document = fetchDocument();
@@ -50,6 +59,7 @@
         document.$permissions.read,
         document.$permissions.write
       );
+      documents.clearCache();
       dispatch("change");
       return response;
     },
@@ -58,6 +68,7 @@
         document.$collection,
         document.$id
       );
+      documents.clearCache();
       dispatch("change");
       return response;
     },
