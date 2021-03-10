@@ -18,7 +18,7 @@ export class DocumentsStore {
    */
   async fetchCollection(collectionId, cache, query) {
     if (cache) {
-      const documents = Array.from(get(this)).filter(entry => entry[0].startsWith(collectionId))
+      const documents = Array.from(get(this).entries()).filter(entry => entry[0].startsWith(collectionId))
       if (documents?.length) {
         return {
           documents,
@@ -41,7 +41,7 @@ export class DocumentsStore {
     if (cache) {
       this.update(map => {
         for (const document in response.documents) {
-          map.set(`${collectionId}:${document.$id}`, document);
+          map[`${collectionId}:${document.$id}`] = document;
           return map;
         }
       });
@@ -52,14 +52,14 @@ export class DocumentsStore {
 
   async fetchDocument(collectionId, documentId, cache) {
     const id = `${collectionId}:${document.$id}`;
-    if (cache && get(this).has(id)) {
-      return get(this).get(id);
+    if (cache && get(this)[id]) {
+      return get(this)[id];
     }
 
     const response = Appwrite.sdk.database.getDocument(collectionId, documentId)
     if (cache) {
       this.update(map => {
-        map.set(id, response);
+        map[id] = response;
         return map;
       });
     }
