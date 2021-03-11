@@ -29,26 +29,16 @@
   export let orderType = '';
   export let orderCast = 'string';
   export let search = '';
+
+  /**
+   * @description Enables document caching. Call `actions.reload()` to get fresh document(s)
+   * @type {boolean}
+   */
   export let cache = false;
   setContext(cacheKey, cache);
 
   const fetchDocuments = async () => {
-    if (cache) {
-      const docs = Array
-        .from($documents.entries())
-        .filter(entry => entry[0].startsWith(id))
-        .map(entry => entry[1])
-        
-      if (docs?.length) {
-        return {
-          documents: docs,
-          sum: documents.length
-        }
-      }
-    }
-
-    const response = await Appwrite.sdk.database.listDocuments(
-      id,
+    return await documents.getDocuments(id, cache, {
       filters,
       limit,
       offset,
@@ -56,24 +46,13 @@
       orderType,
       orderCast,
       search,
-    )
-
-    if (cache) {
-      documents.update(map => {
-        for (const document of response.documents) {
-          map.set(`${id}:${document.$id}`, document);
-        }
-        return map;
-      })
-    }
-
-    return response;
+    })
   };
 
   const actions = {
     reload: () => {
-      $documents.set(new Map());
-      documents = fetchDocuments()
+      documents.clear()
+      getDocuments = fetchDocuments()
     },
     create: async (
       data,
@@ -81,7 +60,6 @@
       write = [`user:${$currentUser.$id}`]
     ) => {
       const response = await Appwrite.sdk.database.createDocument(id, data, read, write);
-      documents.set(new Map());
       actions.reload();
       return response;
     },

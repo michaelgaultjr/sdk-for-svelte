@@ -34,29 +34,18 @@
    */
   export let document;
 
-  /** @type {boolean} */
+  /** 
+   * @description Enables document caching. Call `actions.reload()` to get fresh document(s)
+   * @type {boolean}
+   */
   export let cache = getContext(cacheKey) ?? false;
 
   const fetchDocument = async () => {
-    const key = `${collection}:${id}`;
-    if (cache && $documents.has(key)) {
-      return $documents.get(key);
-    }
-
-    const response = Appwrite.sdk.database.getDocument(collection, id)
-
-    if (cache) {
-      documents.update(map => {
-        map.set(key, response);
-        return map;
-      });
-    }
-  
-    return response;
+    return await documents.fetchDocument(collection, id, cache);
   };
 
   if (id && collection && !document) {
-    document = fetchDocument(cache);
+    document = fetchDocument();
   } else {
     collection = document.$collection;
     id = document.$id;
@@ -64,7 +53,7 @@
 
   const actions = {
     reload: () => {
-      documents.set(new Map());
+      documents.clear();
       document = fetchDocument()
     },
     update: async data => {
@@ -75,7 +64,7 @@
         document.$permissions.read,
         document.$permissions.write
       );
-      documents.set(new Map());
+      actions.reload();
       dispatch("change");
       return response;
     },
@@ -84,7 +73,7 @@
         document.$collection,
         document.$id
       );
-      documents.set(new Map());
+      actions.reload();
       dispatch("change");
       return response;
     },
