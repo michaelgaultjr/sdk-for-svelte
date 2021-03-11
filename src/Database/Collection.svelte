@@ -38,7 +38,7 @@
   setContext(cacheKey, cache);
 
   const fetchDocuments = async () => {
-    return await documents.getDocuments(id, cache, {
+    return await documents.fetchDocuments(id, cache, {
       filters,
       limit,
       offset,

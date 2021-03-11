@@ -1,5 +1,6 @@
 import { SDK as Appwrite }  from "../appwrite";
 import { writable, get } from "svelte/store";
+import { doc } from "prettier";
 
 export class DocumentsStore {
   constructor() {
@@ -26,11 +27,11 @@ export class DocumentsStore {
         .from(get(this).entries())
         .filter(entry => entry[0].startsWith(id))
         .map(entry => entry[1])
-        
+
       if (docs?.length) {
         return {
           documents: docs,
-          sum: documents.length + 1
+          sum: docs.length
         }
       }
     }
@@ -46,13 +47,14 @@ export class DocumentsStore {
       query.search,
     )
 
-    this.update(docs => {
-      for (const document of response.documents) {
-        docs.set(`${id}:${document.$id}`, document);
-      }
-      return docs;
-    })
-
+    if (cache) {
+      this.update(docs => {
+        for (const document of response.documents) {
+          docs.set(`${id}:${document.$id}`, document);
+        }
+        return docs;
+      })
+    }
     return response;
   }
 
