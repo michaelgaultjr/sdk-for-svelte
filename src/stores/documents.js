@@ -1,6 +1,5 @@
 import { SDK as Appwrite }  from "../appwrite";
 import { writable, get } from "svelte/store";
-import { doc } from "prettier";
 
 export class DocumentsStore {
   constructor() {
