@@ -82,7 +82,7 @@
 {#await getDocuments}
   <slot name="loading" />
 {:then current}
-  <slot documents={current?.documents ?? []} {actions} />
+  <slot documents={current?.documents ?? []} sum={current.sum} {actions} />
 {:catch error}
   <slot name="error" {error} />
 {/await}
