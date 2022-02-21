@@ -51,6 +51,7 @@ export default class Collection extends SvelteComponentTyped<
   {
     default: {
       documents: any[];
+      sum: number;
       actions: {
         reload: () => Promise<object>;
         create: (
